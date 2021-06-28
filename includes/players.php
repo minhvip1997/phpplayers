@@ -41,9 +41,13 @@ class Player extends Database{
         return $results;
     }
 
-    
-
-  
+    public function getCount(){
+        $sql= "SELECT count(*) as pcount FROM {$this->tableName} ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['pcount'];
+    }
 
     public function getRow($field, $value){
         $sql = "SELECT * FROM {$this->tableName} WHERE {$field}=:{$field}";

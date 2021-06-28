@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-  <tr>
+  <!--<tr>
     <td class="align-middle"><img src="http://placehold.it/80x80" class="img-thumbnail rounded float-left"></td>
     <td class="align-middle">Virat Kohli</td>
     <td class="align-middle">virat@example.com</td>
@@ -50,6 +50,6 @@
     <a href="#" class="btn btn-warning mr-3 edituser" data-toggle="modal" data-target="#userModal" title="Edit"><i class="fa fa-pencil-square-o fa-lg"></i></a>
     <a href="#" class="btn btn-danger deleteuser" title="Delete"><i class="fa fa-trash-o fa-lg"></i></a>
     </td>
-    </tr>
+    </tr>-->
     </tbody>
 </table><!-- table -->

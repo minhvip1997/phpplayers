@@ -48,7 +48,7 @@ include_once 'profile.php';
 <?php
 
 include_once 'playerstable.php'?>
-<nav id="pagination">
+<!--<nav id="pagination">
     <ul class="pagination justify-content-center">
         <li class="page-item disabled"><a class="page-link" href="#" >Previous</a></li>
         <li class="page-item active"><a class="page-link" href="#" >1</a></li>
@@ -56,7 +56,7 @@ include_once 'playerstable.php'?>
         <li class="page-item"><a class="page-link" href="#" >3</a></li>
         <li class="page-item"><a class="page-link" href="#" >Next</a></li>
     </ul>
-</nav>
+</nav>-->
 <input type="hidden" name="currentpage" id="currentpage" value="1">
 </div>
 <div>

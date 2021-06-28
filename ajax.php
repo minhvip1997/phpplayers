@@ -47,7 +47,9 @@ if($action == "getusers"){
     } else {
         $playerslist = [];
     }
-    echo json_encode($playerslist);
+    $total = $obj->getCount();
+    $playerArr=['count'=>$total,'players'=>$playerslist];
+    echo json_encode($playerArr);
     exit();
 }
 ?>
