@@ -198,5 +198,36 @@ $(document).ready(function(){
             },
         });
     });
+
+    $("#searchinput").on("keyup change", function () {
+        const searchText = $(this).val();
+        if(searchText.length >1){
+            $.ajax({
+                url:"/phptutorial/crudphp/ajax.php",
+                type:"GET",
+                dataType:"json",
+                data:{searchQuery: searchText, action:"search"},
+                
+                success:function(players){
+                    if(players){
+                        var playerslist = '';
+                        $.each(players, function(index,player){
+                            playerslist+= getplayerrow(player);
+                        });
+                        $('#userstable tbody').html(playerslist);
+                        $("#pagination").hide();
+                        $("#overlay").fadeOut();
+                    }
+                },
+                error:function(){
+                    console.log("Oops! something went wrong");
+                },
+            });
+        }else{
+            getplayers();
+            $("#pagination").show();
+        }
+        
+      });
       getplayers();
 });

@@ -81,4 +81,11 @@ if ($action == "deleteuser") {
         exit();
     }
 }
+
+if ($action == 'search') {
+    $queryString = (!empty($_GET['searchQuery'])) ? trim($_GET['searchQuery']) : '';
+    $results = $obj->searchPlayer($queryString);
+    echo json_encode($results);
+    exit();
+}
 ?>

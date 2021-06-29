@@ -41,6 +41,19 @@ class Player extends Database{
         return $results;
     }
 
+    public function searchPlayer($searchText, $start=0, $limit=4){
+        $sql = "SELECT * FROM {$this->tableName} WHERE pname LIKE :search ORDER BY id DESC LIMIT
+        {$start},{$limit}";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([':search'=>"{$searchText}%"]);
+        if($stmt->rowCount()>0){
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $results =[];
+        }
+        return $results;
+    }
+
     public function deleteRow($id){
         $sql = "DELETE FROM {$this->tableName} WHERE id=:id";
         $stmt = $this->conn->prepare($sql);
