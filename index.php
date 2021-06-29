@@ -33,7 +33,8 @@ include_once 'profile.php';
 
 <div class="row mb-3">
 <div class="col-3">
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal">Add New <i class="fa fa-user-circle-o" ></i></button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#userModal"
+id="addnewbtn">Add New <i class="fa fa-user-circle-o" ></i></button>
 </div>
 <div class="col-9">
 <div class="input-group input-group-lg">
@@ -48,15 +49,9 @@ include_once 'profile.php';
 <?php
 
 include_once 'playerstable.php'?>
-<!--<nav id="pagination">
-    <ul class="pagination justify-content-center">
-        <li class="page-item disabled"><a class="page-link" href="#" >Previous</a></li>
-        <li class="page-item active"><a class="page-link" href="#" >1</a></li>
-        <li class="page-item"><a class="page-link" href="#" >2</a></li>
-        <li class="page-item"><a class="page-link" href="#" >3</a></li>
-        <li class="page-item"><a class="page-link" href="#" >Next</a></li>
-    </ul>
-</nav>-->
+<nav id="pagination">
+    
+</nav>
 <input type="hidden" name="currentpage" id="currentpage" value="1">
 </div>
 <div>

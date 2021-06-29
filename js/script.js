@@ -1,3 +1,25 @@
+function pagination(totalpages, currentpage) {
+    var pagelist = '';
+    if(totalpages >1){
+        currentpage = parseInt(currentpage);
+        pagelist +=`<ul class="pagination justify-content-center">`;
+        const prevClass = currentpage == 1 ? "disabled": "";
+        pagelist +=`<li class="page-item${prevClass}"><a class="page-link" href="#"
+         data-page="${currentpage-1}">Previous</a></li>`;
+        for(let p = 1;p <= totalpages; p++){
+            const activeClass = currentpage ==p?"active":"";
+            pagelist +=`<li class="page-item${activeClass}"><a class="page-link" href="#" 
+            data-page="${p}">${p}</a></li>`;
+        }
+        const nextClass = currentpage == totalpages ? "disabled": "";
+        pagelist +=`<li class="page-item${nextClass}"><a class="page-link" href="#" 
+        data-page="${currentpage+1}">Next</a></li>`;
+
+        pagelist +=`</ul>`;
+    }
+    $("#pagination").html(pagelist);
+}
+
 function getplayerrow(player) {
 var playerRow = "";
 if(player){
@@ -17,8 +39,6 @@ return playerRow;
 }
 
 
-
-
 function getplayers(){
     var pageno = $('#currentpage').val();
     $.ajax({
@@ -36,6 +56,10 @@ function getplayers(){
                     playerslist+= getplayerrow(player);
                 });
                 $('#userstable tbody').html(playerslist);
+                let totalPlayers = rows.count;
+                let totalpages = Math.ceil(parseInt(totalPlayers)/4);
+                const currentpage = $('#currentpage').val();
+                pagination(totalpages,currentpage);
                 $("#overlay").fadeOut();
             }
         },
@@ -44,8 +68,6 @@ function getplayers(){
         }
     });
 }
-
-
 
 $(document).ready(function(){
     $(document).on("submit","#addform",function(event){
@@ -73,5 +95,46 @@ $(document).ready(function(){
             },
         });
       });
+    $(document).on('click','ul.pagination li a',function(e){
+        e.preventDefault();
+        var $this = $(this);
+
+        const pagenum = $this.data("page");
+        $('#currentpage').val(pagenum);
+        getplayers();
+        $this.parent().siblings().removeClass("active");
+        $this.parent().addClass("active");
+    });
+
+    $(document).on("click", "#addnewbtn", function(){
+        $("#addform")[0].reset();
+        $("#userid").val("");
+    })
+
+    $(document).on("click", "a.edituser", function(){
+        var pid = $(this).data("id");
+        $.ajax({
+            url:"/phptutorial/crudphp/ajax.php",
+            type:"GET",
+            dataType:"json",
+            data:{id: pid, action:"getuser"},
+            beforeSend: function(){
+                
+                $("#overlay").fadeIn();
+            },
+            success:function(player){
+                if(player){
+                    $('#username').val(player.pname);
+                    $('#email').val(player.email);
+                    $('#phone').val(player.phone);
+                    $('#userid').val(player.id);
+                }
+                $("#overlay").fadeOut();
+            },
+            error:function(){
+                console.log("Oops! something went wrong");
+            },
+        });
+    })
       getplayers();
 });

@@ -11,7 +11,7 @@ $pname = $_POST['username'];
 $email = $_POST['email'];
 $phone = $_POST['phone'];
 $photo = $_FILES['photo'];
-$pId = (!empty($_POST['userid'])) ? $_POST['userid'] : '';
+$playerId = (!empty($_POST['userid'])) ? $_POST['userid'] : '';
 
 $imagename = '';
 if(!empty($photo['name'])){
@@ -29,7 +29,13 @@ if(!empty($photo['name'])){
         'phone' => $phone,
     ]; 
 }
-$playerId = $obj->add($playerData);
+
+if($playerId){
+    $obj->update($playerData, $playerId);
+}else{
+    $playerId = $obj->add($playerData);
+}
+
 if(!empty($playerId)){
     $player = $obj->getRow('id',$playerId);
     echo json_encode($player);
@@ -51,5 +57,14 @@ if($action == "getusers"){
     $playerArr=['count'=>$total,'players'=>$playerslist];
     echo json_encode($playerArr);
     exit();
+}
+
+if ($action == "getuser") {
+    $playerId = (!empty($_GET['id'])) ? $_GET['id'] : '';
+    if(!empty($playerId)){
+        $player = $obj->getRow('id',$playerId);
+        echo json_encode($player);
+        exit();
+    }
 }
 ?>

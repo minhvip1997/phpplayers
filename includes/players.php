@@ -7,7 +7,7 @@ class Player extends Database{
     
     public function add($data){
         if(!empty($data)){
-            $filed = $placholders = [];
+            $fileds = $placholders = [];
             foreach ($data as $field =>$value) {
                 $fields[] = $field;
                 $placholders[] = ":{$field}";
@@ -47,6 +47,33 @@ class Player extends Database{
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['pcount'];
+    }
+
+    public function update($data, $id) {
+        if(!empty($data)){
+            $fileds = '';
+            $x = 1;
+            $fieldsCount = count($data);
+            foreach ($data as $field =>$value) {
+
+                $fileds.= "{$field}=:{$field}";
+                if($x<$fieldsCount){
+                    $fileds .=",";
+                }
+                $x++;
+            }
+        }
+        $sql = "UPDATE {$this->tableName} SET {$fileds} WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+        try {
+            $this->conn->beginTransaction();
+            $data['id'] = $id;
+            $stmt->execute($data);
+            $this->conn->commit();
+        } catch (PDOException $e) {
+            echo "Error: " .$e->getMessage();
+            $this->conn->rollback();
+        }
     }
 
     public function getRow($field, $value){
