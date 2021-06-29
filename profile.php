@@ -9,20 +9,7 @@
       </div>
       <div class="modal-body">
       <div class="container" id="profile"> 
-        <div class="row">
-            <div class="col-sm-6 col-md-4">
-                <img src="http://placehold.it/100x100" alt="" class="rounded responsive" />
-            </div>
-            <div class="col-sm-6 col-md-8">
-                <h4 class="text-primary">Virat Kohli</h4>
-                <p class="text-secondary">
-                <i class="fa fa-envelope-o" aria-hidden="true"></i> email@example.com
-                <br />
-                <i class="fa fa-phone" aria-hidden="true"></i> xxxxxxxxxx
-                </p>
-                <!-- Split button -->
-            </div>
-        </div>
+        
 
     </div>   
       </div>

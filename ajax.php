@@ -67,4 +67,18 @@ if ($action == "getuser") {
         exit();
     }
 }
+
+if ($action == "deleteuser") {
+    $playerId = (!empty($_GET['id'])) ? $_GET['id'] : '';
+    if (!empty($playerId)) {
+        $isDeleted = $obj->deleteRow($playerId);
+        if ($isDeleted) {
+            $message = ['deleted' => 1];
+        } else {
+            $message = ['deleted' => 0];
+        }
+        echo json_encode($message);
+        exit();
+    }
+}
 ?>

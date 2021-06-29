@@ -109,7 +109,7 @@ $(document).ready(function(){
     $(document).on("click", "#addnewbtn", function(){
         $("#addform")[0].reset();
         $("#userid").val("");
-    })
+    });
 
     $(document).on("click", "a.edituser", function(){
         var pid = $(this).data("id");
@@ -135,6 +135,68 @@ $(document).ready(function(){
                 console.log("Oops! something went wrong");
             },
         });
-    })
+    });
+
+    //delete deleteuser
+    $(document).on("click", "a.deleteuser", function(e){
+        e.preventDefault();
+        var pid = $(this).data("id");
+        if(confirm("are you sure want to delete")){
+            $.ajax({
+                url:"/phptutorial/crudphp/ajax.php",
+                type:"GET",
+                dataType:"json",
+                data:{id: pid, action:"deleteuser"},
+                beforeSend: function(){
+                    
+                    $("#overlay").fadeIn();
+                },
+                success:function(res){
+                    if(res.deleted == 1){
+                        getplayers();            
+                    $("#overlay").fadeOut();
+                    }
+                },
+                error:function(){
+                    console.log("Oops! something went wrong");
+                },
+            });
+        }
+       
+    });
+    //profile
+    $(document).on("click", "a.profile", function(){
+        var pid = $(this).data("id");
+        $.ajax({
+            url:"/phptutorial/crudphp/ajax.php",
+            type:"GET",
+            dataType:"json",
+            data:{id: pid, action:"getuser"},
+            
+            success:function(player){
+                if(player){
+                    const profile = `<div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <img src="uploads/${player.photo}" alt="" class="rounded responsive" />
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+                        <h4 class="text-primary">${player.pname}</h4>
+                        <p class="text-secondary">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>${player.email}
+                        <br />
+                        <i class="fa fa-phone" aria-hidden="true"></i> ${player.phone}
+                        </p>
+                        <!-- Split button -->
+                    </div>
+                </div>`;
+                $('#profile').html(profile);
+                }
+                
+            },
+            error:function(){
+                console.log("Oops! something went wrong");
+            },
+        });
+    });
       getplayers();
 });
